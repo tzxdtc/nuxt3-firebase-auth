@@ -9,6 +9,9 @@
           <NuxtLink to="/login">
             <Button label="Go to Login" />
           </NuxtLink>
+          <NuxtLink to="/signup">
+            <Button label="Go to SignUp" />
+          </NuxtLink>
         </template>
       </Card>
     </div>

@@ -34,6 +34,8 @@ if (!getApps().length) {
   firebaseAdminApp = getApp()
 }
 
-export const auth = getAuth(firebaseAdminApp)
-export const db = getFirestore(firebaseAdminApp)
-export const storage = getStorage(firebaseAdminApp)
+const { $app } = useNuxtApp()
+
+export const auth = getAuth($app)
+export const db = getFirestore($app)
+export const storage = getStorage($app)

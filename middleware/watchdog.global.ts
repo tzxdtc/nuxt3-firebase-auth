@@ -2,14 +2,14 @@ import useUser from "~~/composables/useUser";
 
 export default defineNuxtRouteMiddleware((to, from) => {
   const user = useUser()
-  const allowedRoutes = ['/', '/login']
+  const allowedRoutes = ['/', '/login', '/signup']
   if (user.value) {
     if (allowedRoutes.includes(to.path)) {
       return navigateTo('/private')
     }
   } else {
     if (!allowedRoutes.includes(to.path)) {
-      return navigateTo('/login')
+      // return navigateTo('/login')
     }
   }
 })

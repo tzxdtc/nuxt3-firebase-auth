@@ -1,4 +1,10 @@
 export default defineNuxtConfig({
+  postcss: {
+    plugins: {
+      tailwindcss: {},
+      autoprefixer: {},
+    },
+  },
   app: {
     head: {
       title: 'Nuxt3 + Firebase9 Authentication Demo',
@@ -22,7 +28,8 @@ export default defineNuxtConfig({
     'primevue/resources/themes/lara-light-teal/theme.css',
     'primevue/resources/primevue.css',
     'primeflex/primeflex.css',
-    'primeicons/primeicons.css'
+    'primeicons/primeicons.css',
+    '~/assets/css/main.css'
   ],
   runtimeConfig: {
     apiKey: process.env.apiKey,
