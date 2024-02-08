@@ -15,15 +15,8 @@
           </div>
         </template>
         <template #footer>
-          <Button icon="pi pi-check" label="get Data" @click="getData" />
+          <Button class="bg-black" label="add Data" @click="addData" />
         </template>
-
-        <div class="hhhhh">
-          <ul>
-            <li v-for="page in pages" :key="page.name">{{ page.title }}</li>
-          </ul>
-        </div>
-
       </Card>
     </div>
   </div>
@@ -42,6 +35,7 @@ import {   getFirestore,
   QueryDocumentSnapshot,
   SnapshotOptions
    } from "firebase/firestore";
+import { firestore } from "firebase-admin";
 
 interface Page {
   name: string;
@@ -51,21 +45,10 @@ interface Page {
 const { $app } = useNuxtApp()
 
 const pages = ref<Page[]>([]);
-
+  
 
 onMounted(async () => {
-  const db = getFirestore()
-  const q = query(collection(db, "pages"));
-
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        // console.log('hellllll')
-        // console.log(doc.data())
-
-
-        // pages.value.push(page)
-        pages.value.push(doc.data())
-      });
+  await getData()
 });
 
 const { $firebaseAuth } = useNuxtApp()
@@ -76,15 +59,32 @@ const signOut = async () => {
   navigateTo('/')
 }
 
-const getData = async () => {
-  
-    const db = getFirestore()
-  const q = query(collection(db, "pages")).withConverter(pageConverter);
+const addData = async () => {
+  const db = getFirestore()
 
+  const docRef = doc(db, "pages", '2');
+  const docData = {
+    name: "John Doe",
+    title: 'aaaa',
+    description: "New York"
+  };
+
+  try {
+    await setDoc(docRef, docData);
+    console.log("Document successfully written!");
+    await getData();
+  } catch (error) {
+    console.error("Error writing document: ", error);
+  }
+}
+
+const getData = async () => {
+  const db = getFirestore()
+  const q = query(collection(db, "pages"));
+      pages.value = []
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
-
-
+        pages.value.push(doc.data())
       });
 }
 
