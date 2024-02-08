@@ -38,7 +38,7 @@
                 success-message="Nice and secure!"
               />
               <Button
-                :label="disabled ? 'Please wait...' : 'Sign in'"
+                :label="disabled ? 'Please wait...' : 'Sign up'"
                 class="w-full p-3 text-xl submit-btn"
                 ref="submitBtn"
                 type="submit"
@@ -70,7 +70,7 @@ const schema = ref({
   password: 'required|min:8'
 })
 
-const signin = async () => {
+const signup = async () => {
   if (signinForm.value.email || signinForm.value.password) disabled.value = true
   try {
     const { user } = await createUserWithEmailAndPassword(
@@ -90,7 +90,7 @@ const signin = async () => {
 
 function onSubmit({ email = '', password = '' }) {
   signinForm.value = { email, password }
-  signin()
+  signup()
 }
 
 function onInvalidSubmit() {
